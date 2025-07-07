@@ -1,0 +1,22 @@
+{
+    "films": [
+        {
+            "title": "¿Qué he hecho yo para merecer esto",
+            "id": "1",
+            "director": "Pedro Almodóvar",
+            "film_description": "La película aborda el hastío vital de una ama de casa que ve cómo la indiferencia, rechazo e infidelidades de su marido arrinconan su día a día hasta empujarla a una realidad de anfetaminas donde sus hijos macarras, su suegra, un lagarto y una vecina prostituta atesoran una vía de escape tan surrealista como deslumbrante."
+        },
+        {
+            "title": "La flor de mi secreto",
+            "id": "2",
+            "director":"Pedro Almodóvar",
+            "film_description": "Leo es una escritora de novela rosa en plena crisis creativa y vital. Está locamente enamorada de su marido, un militar destinado en Bosnia, pero su matrimonio está roto y eso la sume en la más absoluta desesperación. Además, sus editores pretenden demandarla por incumplir los plazos de entrega."
+        },
+        {
+            "title": "Dolor y gloria",
+            "id": "3",
+            "director": "Pedro Almodóvar",
+            "film_description": "Salvador Mallo (Antonio Banderas), un director de cine maduro y en horas bajas por la mala salud, reflexiona sobre las decisiones personales de su vida remontándose a su infancia en un pueblo de Valencia mientras siente que el presente se le derrumba."
+        }
+    ]
+}
