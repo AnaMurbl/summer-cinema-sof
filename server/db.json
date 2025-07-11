@@ -1,22 +1,100 @@
 {
-    "films": [
-        {
-            "title": "¿Qué he hecho yo para merecer esto",
-            "id": "1",
-            "director": "Pedro Almodóvar",
-            "film_description": "La película aborda el hastío vital de una ama de casa que ve cómo la indiferencia, rechazo e infidelidades de su marido arrinconan su día a día hasta empujarla a una realidad de anfetaminas donde sus hijos macarras, su suegra, un lagarto y una vecina prostituta atesoran una vía de escape tan surrealista como deslumbrante."
-        },
-        {
-            "title": "La flor de mi secreto",
-            "id": "2",
-            "director":"Pedro Almodóvar",
-            "film_description": "Leo es una escritora de novela rosa en plena crisis creativa y vital. Está locamente enamorada de su marido, un militar destinado en Bosnia, pero su matrimonio está roto y eso la sume en la más absoluta desesperación. Además, sus editores pretenden demandarla por incumplir los plazos de entrega."
-        },
-        {
-            "title": "Dolor y gloria",
-            "id": "3",
-            "director": "Pedro Almodóvar",
-            "film_description": "Salvador Mallo (Antonio Banderas), un director de cine maduro y en horas bajas por la mala salud, reflexiona sobre las decisiones personales de su vida remontándose a su infancia en un pueblo de Valencia mientras siente que el presente se le derrumba."
-        }
-    ]
+  "films": [
+      {
+    "title": "The Thing",
+    "director": "John Carpenter",
+    "year": 1982,
+    "genre": "Horror, Science Fiction",
+    "rating": "8.2",
+    "description": "A group of scientists in Antarctica encounter a shape-shifting alien creature that unleashes terror among them."
+  },
+  {
+    "title": "Cloverfield",
+    "director": "Matt Reeves",
+    "year": 2008,
+    "genre": "Horror, Science Fiction",
+    "rating": "7",
+    "description": "A giant monster attacks New York City as a group of friends document their attempt to survive using a handheld camera."
+  },
+  {
+    "title": "Hereditary",
+    "director": "Ari Aster",
+    "year": 2018,
+    "genre": "Psychological Horror",
+    "rating": "7.3",
+    "description": "After the death of their secretive grandmother, a family begins to unravel terrifying and inherited secrets."
+  },
+  {
+    "title": "The Babadook",
+    "director": "Jennifer Kent",
+    "year": 2014,
+    "genre": "Psychological Horror, Drama",
+    "rating": "6.8/10",
+    "description": "A widowed mother and her son are haunted by a sinister presence emerging from a mysterious children's book."
+  },
+  {
+    "title": "The Conjuring",
+    "director": "James Wan",
+    "year": 2013,
+    "genre": "Supernatural Horror",
+    "rating": "7.5/10",
+    "description": "Based on true events, paranormal investigators help a family terrorized by a dark presence in their farmhouse."
+  },
+  {
+    "title": "It Follows",
+    "director": "David Robert Mitchell",
+    "year": 2014,
+    "genre": "Supernatural Horror",
+    "rating": "6.8/10",
+    "description": "A young woman is pursued by a supernatural entity that moves from person to person through a cursed sexual encounter."
+  },
+  {
+    "title": "Midsommar",
+    "director": "Ari Aster",
+    "year": 2019,
+    "genre": "Folk Horror",
+    "rating": "7.1/10",
+    "description": "A grieving couple travels to Sweden for a midsummer festival that quickly descends into disturbing and deadly rituals."
+  },
+  {
+    "title": "REC",
+    "director": "Jaume Balagueró and Paco Plaza",
+    "year": 2007,
+    "genre": "Found Footage Horror",
+    "rating": "7.4/10",
+    "description": "A TV reporter and her cameraman are trapped in a quarantined building where a viral outbreak causes residents to become violently infected."
+  },
+  {
+    "title": "The Witch",
+    "director": "Robert Eggers",
+    "year": 2015,
+    "genre": "Historical Horror",
+    "rating": "6.9/10",
+    "description": "In 17th-century New England, a puritan family is plagued by evil forces lurking in the nearby woods."
+  },
+  {
+    "title": "Insidious",
+    "director": "James Wan",
+    "year": 2010,
+    "genre": "Supernatural Horror",
+    "rating": "6.8/10",
+    "description": "A family must deal with dark spirits trying to possess the soul of their comatose child."
+  },
+  {
+    "title": "Sinister",
+    "director": "Scott Derrickson",
+    "year": 2012,
+    "genre": "Supernatural Horror",
+    "rating": "6.8/10",
+    "description": "A true-crime writer discovers a box of home videos that depict gruesome murders connected to an ancient evil."
+  },
+  {
+    "title": "The Ring",
+    "director": "Gore Verbinski",
+    "year": 2002,
+    "genre": "Supernatural Horror",
+    "rating": "7.1/10",
+    "description": "A journalist investigates a mysterious videotape that causes anyone who watches it to die seven days later."
+  }
+  ]
 }
