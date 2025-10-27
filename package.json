@@ -1,15 +1,23 @@
 {
   "name": "cine-de-verano",
   "version": "1.0.0",
-  "main": "services.js",
+  "description": "Aplicación de gestión de películas de verano con operaciones CRUD",
+  "main": "src/services.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "api": "json-server --watch server/db.json "
+    "api": "json-server --watch server/db.json"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "movies",
+    "cinema",
+    "crud",
+    "json-server"
+  ],
+  "authors": [
+    "Sofía Reyes",
+    "Ana"
+  ],
   "license": "ISC",
-  "description": "",
   "devDependencies": {
     "json-server": "^1.0.0-beta.3"
   }
