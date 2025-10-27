@@ -1,4 +1,4 @@
-// services.js - CRUD mejorado con integración de carousel
+// services.js - CRUD mejorado con integración de carousel y ACCESIBILIDAD AA
 
 // ===============================
 // CONFIGURACIÓN DE API
@@ -39,6 +39,9 @@ async function createFilm(newFilm) {
 
     // Ocultar formulario
     toggleAddForm();
+
+    // ACCESIBILIDAD: Anunciar acción completada
+    announceToScreenReader(`La película ${newFilm.title} ha sido agregada`);
 
   } catch (error) {
     console.error("Error al crear la película:", error.message);
@@ -100,6 +103,9 @@ async function updateFilm(id, updatedFilm) {
     // Mostrar mensaje de éxito
     showSuccessMessage("¡Película actualizada exitosamente!");
 
+    // ACCESIBILIDAD: Anunciar actualización
+    announceToScreenReader(`La película ${updatedFilm.title} ha sido actualizada`);
+
   } catch (error) {
     console.error("Error al actualizar:", error.message);
     showErrorMessage("Error al actualizar la película: " + error.message);
@@ -129,6 +135,14 @@ async function deleteFilm(id) {
 
     // Mostrar mensaje de éxito
     showSuccessMessage("¡Película eliminada exitosamente!");
+
+    // ACCESIBILIDAD: Mover foco al carousel después de eliminar
+    const carousel = document.getElementById('sofia-carousel');
+    if (carousel) {
+      carousel.setAttribute('tabindex', '-1');
+      carousel.focus();
+      setTimeout(() => carousel.removeAttribute('tabindex'), 100);
+    }
 
   } catch (error) {
     console.error("Error al eliminar película:", error);
@@ -165,9 +179,12 @@ function displayFilmsInCarousel(films) {
   carousel.innerHTML = "";
 
   if (films.length === 0) {
-    carousel.innerHTML = '<div class="no-movies">No hay películas registradas</div>';
+    carousel.innerHTML = '<div class="no-movies" role="status">No hay películas registradas</div>';
     return;
   }
+
+  // ACCESIBILIDAD: Anunciar cantidad de películas cargadas
+  announceToScreenReader(`${films.length} películas cargadas`);
 
   // Crear tarjetas de películas
   films.forEach(film => {
@@ -176,27 +193,37 @@ function displayFilmsInCarousel(films) {
   });
 }
 
-// Crear tarjeta de película
+// Crear tarjeta de película - MEJORADO CON ACCESIBILIDAD
 function createMovieCard(film) {
   const card = document.createElement('div');
   card.className = 'movie-card';
+  // ACCESIBILIDAD: Añadir article para semántica
+  card.setAttribute('role', 'article');
+  card.setAttribute('aria-labelledby', `title-${film.id}`);
+
   card.innerHTML = `
-    <h3>${escapeHtml(film.title)}</h3>
+    <h3 id="title-${film.id}">${escapeHtml(film.title)}</h3>
     <p><strong>Director:</strong> ${escapeHtml(film.director)}</p>
     <p class="description">${escapeHtml(film.description)}</p>
-    <div class="card-buttons">
-      <button class="btn-edit" onclick="editFilm('${film.id}', '${escapeForJs(film.title)}', '${escapeForJs(film.director)}', '${escapeForJs(film.description)}')">
-        ✏️ Editar
+    <div class="card-buttons" role="group" aria-label="Acciones para ${escapeHtml(film.title)}">
+      <button
+        class="btn-edit"
+        onclick="editFilm('${film.id}', '${escapeForJs(film.title)}', '${escapeForJs(film.director)}', '${escapeForJs(film.description)}')"
+        aria-label="Editar película ${escapeHtml(film.title)}">
+        <span aria-hidden="true">✏️</span> Editar
       </button>
-      <button class="btn-delete" onclick="confirmDeleteFilm('${film.id}', '${escapeForJs(film.title)}')">
-        🗑️ Eliminar
+      <button
+        class="btn-delete"
+        onclick="confirmDeleteFilm('${film.id}', '${escapeForJs(film.title)}')"
+        aria-label="Eliminar película ${escapeHtml(film.title)}">
+        <span aria-hidden="true">🗑️</span> Eliminar
       </button>
     </div>
   `;
   return card;
 }
 
-// Mostrar el formulario de edición
+// Mostrar el formulario de edición - MEJORADO CON ACCESIBILIDAD
 function editFilm(id, title, director, description) {
   const updateForm = document.getElementById("updateForm");
   if (!updateForm) {
@@ -207,50 +234,101 @@ function editFilm(id, title, director, description) {
   // Mostrar el formulario de edición
   updateForm.classList.add('active');
 
+  // ACCESIBILIDAD: Actualizar ARIA
+  updateForm.setAttribute('aria-hidden', 'false');
+
   // Rellenar los campos con los datos actuales
   document.getElementById("updateId").value = id;
   document.getElementById("updateTitle").value = title;
   document.getElementById("updateDirector").value = director;
   document.getElementById("updateDescription").value = description;
 
-  // Hacer scroll al formulario de edición
+  // ACCESIBILIDAD: Hacer scroll al formulario y mover foco al primer campo
   updateForm.scrollIntoView({ behavior: 'smooth' });
+
+  setTimeout(() => {
+    const firstInput = document.getElementById("updateTitle");
+    if (firstInput) {
+      firstInput.focus();
+    }
+  }, 300);
+
+  // ACCESIBILIDAD: Anunciar que se abrió el formulario
+  announceToScreenReader(`Formulario de edición abierto para ${title}`);
 }
 
-// Ocultar el formulario de edición
+// Ocultar el formulario de edición - MEJORADO CON ACCESIBILIDAD
 function hideUpdateForm() {
   const updateForm = document.getElementById("updateForm");
   if (updateForm) {
     updateForm.classList.remove('active');
+
+    // ACCESIBILIDAD: Actualizar ARIA
+    updateForm.setAttribute('aria-hidden', 'true');
 
     // Limpiar los campos
     const form = document.getElementById("updateFormFields");
     if (form) {
       form.reset();
     }
-  }
-}
 
-// Mostrar/ocultar formulario de agregar
-function toggleAddForm() {
-  const addFormSection = document.getElementById("add-film-section");
-  if (addFormSection) {
-    addFormSection.classList.toggle('active');
-
-    // Si se está cerrando, limpiar el formulario
-    if (!addFormSection.classList.contains('active')) {
-      const form = document.getElementById("formFilm");
-      if (form) {
-        form.reset();
-      }
+    // ACCESIBILIDAD: Devolver foco al carousel
+    const carousel = document.getElementById('sofia-carousel');
+    if (carousel) {
+      carousel.setAttribute('tabindex', '-1');
+      carousel.focus();
+      setTimeout(() => carousel.removeAttribute('tabindex'), 100);
     }
   }
 }
 
-// Confirmar antes de eliminar
+// Mostrar/ocultar formulario de agregar - MEJORADO CON ACCESIBILIDAD
+function toggleAddForm() {
+  const addFormSection = document.getElementById("add-film-section");
+  const toggleButton = document.querySelector('.toggle-form-btn');
+
+  if (addFormSection) {
+    const isOpen = addFormSection.classList.toggle('active');
+
+    // ACCESIBILIDAD: Actualizar ARIA
+    addFormSection.setAttribute('aria-hidden', !isOpen);
+    if (toggleButton) {
+      toggleButton.setAttribute('aria-expanded', isOpen);
+    }
+
+    // Si se está cerrando, limpiar el formulario
+    if (!isOpen) {
+      const form = document.getElementById("formFilm");
+      if (form) {
+        form.reset();
+      }
+
+      // ACCESIBILIDAD: Devolver foco al botón
+      if (toggleButton) {
+        toggleButton.focus();
+      }
+    } else {
+      // Si se está abriendo, mover foco al primer campo
+      setTimeout(() => {
+        const firstInput = document.getElementById("title");
+        if (firstInput) {
+          firstInput.focus();
+        }
+      }, 100);
+    }
+  }
+}
+
+// Confirmar antes de eliminar - MEJORADO CON ACCESIBILIDAD
 function confirmDeleteFilm(id, title) {
-  if (confirm(`¿Estás seguro de que quieres eliminar la película "${title}"?`)) {
+  // ACCESIBILIDAD: Mensaje más descriptivo
+  const confirmMessage = `¿Estás segura de que quieres eliminar la película "${title}"?\n\nEsta acción no se puede deshacer.`;
+
+  if (confirm(confirmMessage)) {
     deleteFilm(id);
+  } else {
+    // ACCESIBILIDAD: Anunciar cancelación
+    announceToScreenReader('Eliminación cancelada');
   }
 }
 
@@ -273,18 +351,36 @@ function escapeForJs(text) {
   return text.replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n');
 }
 
-// Mostrar indicador de carga
+// Mostrar indicador de carga - MEJORADO CON ACCESIBILIDAD
 function showLoading(carouselId) {
   const carousel = document.getElementById(carouselId);
   if (carousel) {
-    carousel.innerHTML = '<div class="loading">Procesando...</div>';
+    carousel.innerHTML = '<div class="loading" role="status" aria-live="polite">Procesando...</div>';
   }
 }
 
-// Mostrar notificación de éxito
+// ACCESIBILIDAD: Nueva función para anunciar cambios a lectores de pantalla
+function announceToScreenReader(message) {
+  const announcement = document.getElementById('sr-announcer');
+  if (announcement) {
+    announcement.textContent = message;
+    // Limpiar después de 1 segundo
+    setTimeout(() => {
+      announcement.textContent = '';
+    }, 1000);
+  }
+}
+
+// Mostrar notificación de éxito - MEJORADO CON ACCESIBILIDAD
 function showSuccessMessage(message) {
   const notification = document.createElement('div');
   notification.className = 'notification success';
+
+  // ACCESIBILIDAD: Atributos ARIA
+  notification.setAttribute('role', 'alert');
+  notification.setAttribute('aria-live', 'polite');
+  notification.setAttribute('aria-atomic', 'true');
+
   notification.textContent = message;
   notification.style.cssText = `
     position: fixed;
@@ -312,10 +408,16 @@ function showSuccessMessage(message) {
   }, 3000);
 }
 
-// Mostrar notificación de error
+// Mostrar notificación de error - MEJORADO CON ACCESIBILIDAD
 function showErrorMessage(message) {
   const notification = document.createElement('div');
   notification.className = 'notification error';
+
+  // ACCESIBILIDAD: Atributos ARIA (assertive para errores)
+  notification.setAttribute('role', 'alert');
+  notification.setAttribute('aria-live', 'assertive');
+  notification.setAttribute('aria-atomic', 'true');
+
   notification.textContent = message;
   notification.style.cssText = `
     position: fixed;
@@ -363,6 +465,15 @@ document.addEventListener("DOMContentLoaded", function() {
   `;
   document.head.appendChild(style);
 
+  // ACCESIBILIDAD: Crear elemento oculto para anuncios a lectores de pantalla
+  const srAnnouncer = document.createElement('div');
+  srAnnouncer.id = 'sr-announcer';
+  srAnnouncer.setAttribute('role', 'status');
+  srAnnouncer.setAttribute('aria-live', 'polite');
+  srAnnouncer.setAttribute('aria-atomic', 'true');
+  srAnnouncer.className = 'sr-only';
+  document.body.appendChild(srAnnouncer);
+
   // Event listener para el formulario de creación
   const createForm = document.getElementById("formFilm");
   if (createForm) {
@@ -378,7 +489,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Validar que los campos no estén vacíos
       if (!newFilm.title || !newFilm.director || !newFilm.description) {
-        showErrorMessage("Por favor, completa todos los campos");
+        showErrorMessage("Por favor, completa todos los campos obligatorios");
+
+        // ACCESIBILIDAD: Mover foco al primer campo vacío
+        if (!newFilm.title) {
+          document.getElementById("title")?.focus();
+        } else if (!newFilm.director) {
+          document.getElementById("director")?.focus();
+        } else if (!newFilm.description) {
+          document.getElementById("description")?.focus();
+        }
         return;
       }
 
@@ -403,7 +523,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Validar que los campos no estén vacíos
       if (!updatedFilm.title || !updatedFilm.director || !updatedFilm.description) {
-        showErrorMessage("Por favor, completa todos los campos");
+        showErrorMessage("Por favor, completa todos los campos obligatorios");
+
+        // ACCESIBILIDAD: Mover foco al primer campo vacío
+        if (!updatedFilm.title) {
+          document.getElementById("updateTitle")?.focus();
+        } else if (!updatedFilm.director) {
+          document.getElementById("updateDirector")?.focus();
+        } else if (!updatedFilm.description) {
+          document.getElementById("updateDescription")?.focus();
+        }
         return;
       }
 
@@ -418,6 +547,25 @@ document.addEventListener("DOMContentLoaded", function() {
       hideUpdateForm();
     });
   }
+
+  // ACCESIBILIDAD: Event listener para la tecla Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      // Cerrar formulario de edición si está abierto
+      const updateForm = document.getElementById("updateForm");
+      if (updateForm && updateForm.classList.contains('active')) {
+        hideUpdateForm();
+        return;
+      }
+
+      // Cerrar formulario de agregar si está abierto
+      const addForm = document.getElementById("add-film-section");
+      if (addForm && addForm.classList.contains('active')) {
+        toggleAddForm();
+        return;
+      }
+    }
+  });
 
   // Cargar las películas al inicio
   loadAndDisplayFilms();
