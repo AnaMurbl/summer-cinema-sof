@@ -8,7 +8,7 @@ const API_ENDPOINT = `${API_BASE_URL}/films`;
 async function createFilm(newFilm) {
   try {
     showLoading('sofia-carousel');
-    
+
     const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: {
@@ -26,13 +26,13 @@ async function createFilm(newFilm) {
 
     // Actualizar la vista
     await loadAndDisplayFilms();
-    
+
     // Mostrar mensaje de éxito
     showSuccessMessage("¡Película agregada exitosamente!");
-    
+
     // Ocultar formulario
     toggleAddForm();
-    
+
   } catch (error) {
     console.error("Error al crear la película:", error.message);
     showErrorMessage("Error al crear la película: " + error.message);
@@ -56,7 +56,7 @@ async function getFilms() {
     const filmData = await response.json();
     console.log("Películas obtenidas:", filmData);
     return filmData;
-    
+
   } catch (error) {
     console.error("Error al obtener películas:", error.message);
     showErrorMessage("Error al cargar las películas: " + error.message);
@@ -69,9 +69,9 @@ async function loadAndDisplayFilms() {
   try {
     const films = await getFilms();
     allMovies = films; // Actualizar variable global
-    
+
     displayFilmsInCarousel(films);
-    
+
   } catch (error) {
     console.error("Error al cargar y mostrar películas:", error);
     showErrorMessage("Error al mostrar las películas");
@@ -81,15 +81,15 @@ async function loadAndDisplayFilms() {
 // Función para mostrar películas en el carousel
 function displayFilmsInCarousel(films) {
   const carousel = document.getElementById("sofia-carousel");
-  
+
   // Limpiar carousel
   carousel.innerHTML = "";
-  
+
   if (films.length === 0) {
     carousel.innerHTML = '<div class="no-movies">No hay películas registradas</div>';
     return;
   }
-  
+
   // Crear tarjetas de películas
   films.forEach(film => {
     const movieCard = createMovieCard(film);
@@ -121,7 +121,7 @@ function createMovieCard(film) {
 async function updateFilm(id, updatedFilm) {
   try {
     showLoading('sofia-carousel');
-    
+
     const response = await fetch(`${API_ENDPOINT}/${id}`, {
       method: "PUT",
       headers: {
@@ -136,16 +136,16 @@ async function updateFilm(id, updatedFilm) {
 
     const data = await response.json();
     console.log("Película actualizada:", data);
-    
+
     // Actualizar la vista
     await loadAndDisplayFilms();
-    
+
     // Ocultar formulario de edición
     hideUpdateForm();
-    
+
     // Mostrar mensaje de éxito
     showSuccessMessage("¡Película actualizada exitosamente!");
-    
+
   } catch (error) {
     console.error("Error al actualizar:", error.message);
     showErrorMessage("Error al actualizar la película: " + error.message);
@@ -156,26 +156,26 @@ async function updateFilm(id, updatedFilm) {
 async function deleteFilm(id) {
   try {
     showLoading('sofia-carousel');
-    
+
     const response = await fetch(`${API_ENDPOINT}/${id}`, {
       method: "DELETE",
-      headers: { 
-        "Content-Type": "application/json" 
+      headers: {
+        "Content-Type": "application/json"
       },
     });
-    
+
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
-    
+
     console.log(`Película con id ${id} eliminada correctamente.`);
-    
+
     // Actualizar la vista
     await loadAndDisplayFilms();
-    
+
     // Mostrar mensaje de éxito
     showSuccessMessage("¡Película eliminada exitosamente!");
-    
+
   } catch (error) {
     console.error("Error al eliminar película:", error);
     showErrorMessage("Error al eliminar la película: " + error.message);
@@ -191,16 +191,16 @@ function editFilm(id, title, director, description) {
     console.error("No se encontró el formulario de edición");
     return;
   }
-  
+
   // Mostrar el formulario de edición
   updateForm.classList.add('active');
-  
+
   // Rellenar los campos con los datos actuales
   document.getElementById("updateId").value = id;
   document.getElementById("updateTitle").value = title;
   document.getElementById("updateDirector").value = director;
   document.getElementById("updateDescription").value = description;
-  
+
   // Hacer scroll al formulario de edición
   updateForm.scrollIntoView({ behavior: 'smooth' });
 }
@@ -210,7 +210,7 @@ function hideUpdateForm() {
   const updateForm = document.getElementById("updateForm");
   if (updateForm) {
     updateForm.classList.remove('active');
-    
+
     // Limpiar los campos
     const form = document.getElementById("updateFormFields");
     if (form) {
@@ -266,9 +266,9 @@ function showSuccessMessage(message) {
     z-index: 1000;
     animation: slideIn 0.3s ease-out;
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   // Remover después de 3 segundos
   setTimeout(() => {
     notification.style.animation = 'slideOut 0.3s ease-in';
@@ -298,9 +298,9 @@ function showErrorMessage(message) {
     z-index: 1000;
     animation: slideIn 0.3s ease-out;
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   // Remover después de 5 segundos
   setTimeout(() => {
     notification.style.animation = 'slideOut 0.3s ease-in';
@@ -321,33 +321,33 @@ document.addEventListener("DOMContentLoaded", function() {
       from { transform: translateX(100%); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
     }
-    
+
     @keyframes slideOut {
       from { transform: translateX(0); opacity: 1; }
       to { transform: translateX(100%); opacity: 0; }
     }
   `;
   document.head.appendChild(style);
-  
+
   // Event listener para el formulario de creación
   const createForm = document.getElementById("formFilm");
   if (createForm) {
     createForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      
+
       const formData = new FormData(e.target);
       const newFilm = {
         title: formData.get("title").trim(),
         director: formData.get("director").trim(),
         description: formData.get("description").trim(),
       };
-      
+
       // Validar que los campos no estén vacíos
       if (!newFilm.title || !newFilm.director || !newFilm.description) {
         showErrorMessage("Por favor, completa todos los campos");
         return;
       }
-      
+
       createFilm(newFilm);
       e.target.reset();
     });
@@ -358,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function() {
   if (updateForm) {
     updateForm.addEventListener("submit", function (e) {
       e.preventDefault();
-      
+
       const formData = new FormData(e.target);
       const id = formData.get("updateId");
       const updatedFilm = {
@@ -366,13 +366,13 @@ document.addEventListener("DOMContentLoaded", function() {
         director: formData.get("updateDirector").trim(),
         description: formData.get("updateDescription").trim(),
       };
-      
+
       // Validar que los campos no estén vacíos
       if (!updatedFilm.title || !updatedFilm.director || !updatedFilm.description) {
         showErrorMessage("Por favor, completa todos los campos");
         return;
       }
-      
+
       updateFilm(id, updatedFilm);
     });
   }
@@ -397,19 +397,3 @@ if (typeof window !== 'undefined') {
   window.confirmDeleteFilm = confirmDeleteFilm;
   window.deleteFilm = deleteFilm;
 }
-
- const addMovie = (e) => {
-    e.preventDefault();
-    
-    if (newMovie.title && newMovie.director && newMovie.year && newMovie.genre) {
-      const movie = {
-        id: Date.now(),
-        ...newMovie,
-        year: parseInt(newMovie.year)
-      };
-      
-      setMovies([...movies, movie]);
-      setNewMovie({ title: '', director: '', year: '', genre: '' });
-      setShowForm(false);
-    }
-  };
