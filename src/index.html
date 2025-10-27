@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cinesa</title>
+    <title>Cine de Verano ☀️</title>
     <link rel="stylesheet" href="summer.css">
 </head>
 <body>
     <div class="container">
         <main>
             <section class="dual-page">
-                <h1>🎬 Cine a Dúo</h1>
+                <h1>🎬 Cine de Verano</h1>
                 <div class="split-button">
                     <div class="split-left">
                         <h2>Explorar Películas</h2>
@@ -21,38 +21,25 @@
                         <p>Organiza tus favoritas</p>
                     </div>
                 </div>
-                
+
                 <div class="dual-film-container">
                     <div class="right glass-effect">
-                        <h2>🌟 Las Favoritas de Sofía</h2>
+                        <h2>🌟 Colección de Películas</h2>
                         <div class="carousel-container">
                             <div class="carousel" id="sofia-carousel">
                                 <div class="loading">Cargando películas...</div>
                             </div>
-                            <button class="carousel-button prev" onclick="moveCarousel('sofia', 'prev')">❮</button>
-                            <button class="carousel-button next" onclick="moveCarousel('sofia', 'next')">❯</button>
-                        </div>
-                    </div>
-                    
-                    <div class="left glass-effect">
-                        <h2>🔥 Las Más Escandalosas de Ana</h2>
-                        <div class="carousel-container">
-                            <div class="carousel" id="ana-carousel">
-                                <div class="no-movies">Próximamente...</div>
-                            </div>
-                            <button class="carousel-button prev" onclick="moveCarousel('ana', 'prev')">❮</button>
-                            <button class="carousel-button next" onclick="moveCarousel('ana', 'next')">❯</button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Botón flotante para mostrar formulario -->
+            <!-- Floating button to show form -->
             <button class="toggle-form-btn" onclick="toggleAddForm()" title="Agregar película">
                 +
             </button>
 
-            <!-- Formulario de agregar película -->
+            <!-- Add movie form -->
             <section id="add-film-section" class="glass-effect">
                 <h2>✨ Agregar Nueva Película</h2>
                 <form id="formFilm">
@@ -60,17 +47,17 @@
                         <label for="title">Título:</label>
                         <input type="text" id="title" name="title" placeholder="Ingresa el título de la película" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="director">Director:</label>
                         <input type="text" id="director" name="director" placeholder="Nombre del director" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="description">Descripción:</label>
                         <textarea id="description" name="description" rows="4" placeholder="Escribe una breve descripción..." required></textarea>
                     </div>
-                    
+
                     <div style="text-align: center;">
                         <button type="submit">Agregar Película</button>
                         <button type="button" class="btn-cancel" onclick="toggleAddForm()">Cancelar</button>
@@ -78,117 +65,36 @@
                 </form>
             </section>
 
-            <!-- Formulario de editar película -->
+            <!-- Edit movie form -->
             <section id="updateForm" class="glass-effect">
                 <h2>✏️ Editar Película</h2>
                 <form id="updateFormFields">
                     <input type="hidden" id="updateId" name="updateId">
-                    
+
                     <div class="form-group">
                         <label for="updateTitle">Título:</label>
                         <input type="text" id="updateTitle" name="updateTitle" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="updateDirector">Director:</label>
                         <input type="text" id="updateDirector" name="updateDirector" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="updateDescription">Descripción:</label>
                         <textarea id="updateDescription" name="updateDescription" rows="4" required></textarea>
                     </div>
-                    
+
                     <div class="form-buttons" style="text-align: center;">
                         <button type="submit" class="btn-update">Actualizar Película</button>
                         <button type="button" id="cancelUpdate" class="btn-cancel">Cancelar</button>
                     </div>
                 </form>
             </section>
-            <!---->
-<div class="container">
-        <h1>🎬 Sistema de Gestión de Películas</h1>
-        
-        <!-- Formulario para agregar películas -->
-        <div class="form-container">
-            <h2>Agregar Nueva Película</h2>
-            <form id="movieForm">
-                <div class="form-group">
-                    <label for="title">Título:</label>
-                    <input type="text" id="title" name="title" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="director">Director:</label>
-                    <input type="text" id="director" name="director" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="year">Año:</label>
-                    <input type="number" id="year" name="year" min="1900" max="2030" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="genre">Género:</label>
-                    <select id="genre" name="genre" required>
-                        <option value="">Selecciona un género</option>
-                        <option value="Acción">Acción</option>
-                        <option value="Aventura">Aventura</option>
-                        <option value="Comedia">Comedia</option>
-                        <option value="Drama">Drama</option>
-                        <option value="Terror">Terror</option>
-                        <option value="Ciencia Ficción">Ciencia Ficción</option>
-                        <option value="Romance">Romance</option>
-                        <option value="Thriller">Thriller</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="rating">Calificación (1-10):</label>
-                    <input type="number" id="rating" name="rating" min="1" max="10" step="0.1" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="description">Descripción:</label>
-                    <textarea id="description" name="description" rows="4"></textarea>
-                </div>
-                
-                <button type="submit" class="btn-submit">Agregar Película</button>
-            </form>
-        </div>
-
-        <!-- Sección de películas favoritas -->
-        <div class="movies-section">
-            <h2>⭐ Películas Favoritas</h2>
-            <div class="carousel-container">
-                <button class="carousel-nav prev" onclick="scrollCarousel('favorites', -1)">❮</button>
-                <div class="carousel" id="favoritesCarousel">
-                    <div class="no-movies">No hay películas favoritas aún</div>
-                </div>
-                <button class="carousel-nav next" onclick="scrollCarousel('favorites', 1)">❯</button>
-                <div class="carousel-indicators" id="favoritesIndicators"></div>
-            </div>
-        </div>
-
-        <!-- Sección de todas las películas -->
-        <div class="movies-section">
-            <h2>🎭 Todas las Películas</h2>
-            <div class="carousel-container">
-                <button class="carousel-nav prev" onclick="scrollCarousel('all', -1)">❮</button>
-                <div class="carousel" id="allMoviesCarousel">
-                    <div class="no-movies">No hay películas registradas</div>
-                </div>
-                <button class="carousel-nav next" onclick="scrollCarousel('all', 1)">❯</button>
-                <div class="carousel-indicators" id="allIndicators"></div>
-            </div>
-        </div>
-    </div>
-
-            <!---->
         </main>
     </div>
-    <script src="./src/services.js" ></script>
-    <script src="./src/summer.js" ></script>
 
+    <script src="services.js"></script>
 </body>
 </html>
