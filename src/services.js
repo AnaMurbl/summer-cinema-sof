@@ -1,10 +1,17 @@
 // services.js - CRUD mejorado con integración de carousel
 
-// ===== CONFIGURACIÓN =====
+// ===============================
+// CONFIGURACIÓN DE API
+// ===============================
 const API_BASE_URL = 'http://localhost:3000';
 const API_ENDPOINT = `${API_BASE_URL}/films`;
 
-// ===== CREATE - Método POST =====
+
+// ===============================
+// OPERACIONES CRUD
+// ===============================
+
+// CREATE - Método POST
 async function createFilm(newFilm) {
   try {
     showLoading('sofia-carousel');
@@ -39,7 +46,7 @@ async function createFilm(newFilm) {
   }
 }
 
-// ===== READ - Método GET =====
+// READ - Método GET
 async function getFilms() {
   try {
     const response = await fetch(API_ENDPOINT, {
@@ -64,60 +71,7 @@ async function getFilms() {
   }
 }
 
-// ===== DISPLAY - Renderizar películas en el carousel =====
-async function loadAndDisplayFilms() {
-  try {
-    const films = await getFilms();
-    allMovies = films; // Actualizar variable global
-
-    displayFilmsInCarousel(films);
-
-  } catch (error) {
-    console.error("Error al cargar y mostrar películas:", error);
-    showErrorMessage("Error al mostrar las películas");
-  }
-}
-
-// Función para mostrar películas en el carousel
-function displayFilmsInCarousel(films) {
-  const carousel = document.getElementById("sofia-carousel");
-
-  // Limpiar carousel
-  carousel.innerHTML = "";
-
-  if (films.length === 0) {
-    carousel.innerHTML = '<div class="no-movies">No hay películas registradas</div>';
-    return;
-  }
-
-  // Crear tarjetas de películas
-  films.forEach(film => {
-    const movieCard = createMovieCard(film);
-    carousel.appendChild(movieCard);
-  });
-}
-
-// Función para crear tarjeta de película
-function createMovieCard(film) {
-  const card = document.createElement('div');
-  card.className = 'movie-card';
-  card.innerHTML = `
-    <h3>${escapeHtml(film.title)}</h3>
-    <p><strong>Director:</strong> ${escapeHtml(film.director)}</p>
-    <p class="description">${escapeHtml(film.description)}</p>
-    <div class="card-buttons">
-      <button class="btn-edit" onclick="editFilm('${film.id}', '${escapeForJs(film.title)}', '${escapeForJs(film.director)}', '${escapeForJs(film.description)}')">
-        ✏️ Editar
-      </button>
-      <button class="btn-delete" onclick="confirmDeleteFilm('${film.id}', '${escapeForJs(film.title)}')">
-        🗑️ Eliminar
-      </button>
-    </div>
-  `;
-  return card;
-}
-
-// ===== UPDATE - Método PUT =====
+// UPDATE - Método PUT
 async function updateFilm(id, updatedFilm) {
   try {
     showLoading('sofia-carousel');
@@ -152,7 +106,7 @@ async function updateFilm(id, updatedFilm) {
   }
 }
 
-// ===== DELETE - Método DELETE =====
+// DELETE - Método DELETE
 async function deleteFilm(id) {
   try {
     showLoading('sofia-carousel');
@@ -182,9 +136,67 @@ async function deleteFilm(id) {
   }
 }
 
-// ===== FUNCIONES DE FORMULARIOS =====
 
-// Función para mostrar el formulario de edición
+// ===============================
+// RENDERIZADO DE UI
+// ===============================
+
+// Cargar y mostrar todas las películas
+async function loadAndDisplayFilms() {
+  try {
+    const films = await getFilms();
+    displayFilmsInCarousel(films);
+  } catch (error) {
+    console.error("Error al cargar y mostrar películas:", error);
+    showErrorMessage("Error al mostrar las películas");
+  }
+}
+
+// Mostrar películas en el carousel
+function displayFilmsInCarousel(films) {
+  const carousel = document.getElementById("sofia-carousel");
+
+  if (!carousel) {
+    console.error("Carousel element not found");
+    return;
+  }
+
+  // Limpiar carousel
+  carousel.innerHTML = "";
+
+  if (films.length === 0) {
+    carousel.innerHTML = '<div class="no-movies">No hay películas registradas</div>';
+    return;
+  }
+
+  // Crear tarjetas de películas
+  films.forEach(film => {
+    const movieCard = createMovieCard(film);
+    carousel.appendChild(movieCard);
+  });
+}
+
+// Crear tarjeta de película
+function createMovieCard(film) {
+  const card = document.createElement('div');
+  card.className = 'movie-card';
+  card.innerHTML = `
+    <h3>${escapeHtml(film.title)}</h3>
+    <p><strong>Director:</strong> ${escapeHtml(film.director)}</p>
+    <p class="description">${escapeHtml(film.description)}</p>
+    <div class="card-buttons">
+      <button class="btn-edit" onclick="editFilm('${film.id}', '${escapeForJs(film.title)}', '${escapeForJs(film.director)}', '${escapeForJs(film.description)}')">
+        ✏️ Editar
+      </button>
+      <button class="btn-delete" onclick="confirmDeleteFilm('${film.id}', '${escapeForJs(film.title)}')">
+        🗑️ Eliminar
+      </button>
+    </div>
+  `;
+  return card;
+}
+
+// Mostrar el formulario de edición
 function editFilm(id, title, director, description) {
   const updateForm = document.getElementById("updateForm");
   if (!updateForm) {
@@ -205,7 +217,7 @@ function editFilm(id, title, director, description) {
   updateForm.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Función para ocultar el formulario de edición
+// Ocultar el formulario de edición
 function hideUpdateForm() {
   const updateForm = document.getElementById("updateForm");
   if (updateForm) {
@@ -219,28 +231,49 @@ function hideUpdateForm() {
   }
 }
 
-// Función para confirmar eliminación
+// Mostrar/ocultar formulario de agregar
+function toggleAddForm() {
+  const addFormSection = document.getElementById("add-film-section");
+  if (addFormSection) {
+    addFormSection.classList.toggle('active');
+
+    // Si se está cerrando, limpiar el formulario
+    if (!addFormSection.classList.contains('active')) {
+      const form = document.getElementById("formFilm");
+      if (form) {
+        form.reset();
+      }
+    }
+  }
+}
+
+// Confirmar antes de eliminar
 function confirmDeleteFilm(id, title) {
   if (confirm(`¿Estás seguro de que quieres eliminar la película "${title}"?`)) {
     deleteFilm(id);
   }
 }
 
-// ===== FUNCIONES UTILITARIAS =====
 
-// Función para escapar HTML
+// ===============================
+// FUNCIONES AUXILIARES
+// ===============================
+
+// Escapar HTML para prevenir ataques XSS
 function escapeHtml(text) {
+  if (!text) return '';
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
 }
 
-// Función para escapar JavaScript
+// Escapar JavaScript
 function escapeForJs(text) {
+  if (!text) return '';
   return text.replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n');
 }
 
-// Función para mostrar loading
+// Mostrar indicador de carga
 function showLoading(carouselId) {
   const carousel = document.getElementById(carouselId);
   if (carousel) {
@@ -248,9 +281,8 @@ function showLoading(carouselId) {
   }
 }
 
-// Función para mostrar mensaje de éxito
+// Mostrar notificación de éxito
 function showSuccessMessage(message) {
-  // Crear elemento de notificación
   const notification = document.createElement('div');
   notification.className = 'notification success';
   notification.textContent = message;
@@ -280,9 +312,8 @@ function showSuccessMessage(message) {
   }, 3000);
 }
 
-// Función para mostrar mensaje de error
+// Mostrar notificación de error
 function showErrorMessage(message) {
-  // Crear elemento de notificación
   const notification = document.createElement('div');
   notification.className = 'notification error';
   notification.textContent = message;
@@ -312,7 +343,10 @@ function showErrorMessage(message) {
   }, 5000);
 }
 
-// ===== EVENT LISTENERS =====
+
+// ===============================
+// INICIALIZACIÓN
+// ===============================
 document.addEventListener("DOMContentLoaded", function() {
   // Agregar estilos para notificaciones
   const style = document.createElement('style');
@@ -390,10 +424,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // ===== FUNCIONES GLOBALES PARA EL HTML =====
-
-// Función global para alternar formulario (llamada desde HTML)
 if (typeof window !== 'undefined') {
   window.editFilm = editFilm;
   window.confirmDeleteFilm = confirmDeleteFilm;
   window.deleteFilm = deleteFilm;
+  window.toggleAddForm = toggleAddForm;
 }
