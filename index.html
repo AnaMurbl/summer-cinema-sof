@@ -5,187 +5,258 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Aplicación web para gestionar tu colección personal de películas">
     <title>Cine de Verano</title>
-    <link rel="stylesheet" href="./summer.css">
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS Modular -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/accessibility.css">
 </head>
 <body>
+    <!-- Skip link para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
     <div class="container">
-        <!-- Skip link para accesibilidad de teclado -->
-        <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+        <!-- Header -->
+        <header class="page-header">
+            <h1 class="page-title">Cine de Verano</h1>
 
+            <!-- Cita de Dolor y gloria -->
+            <blockquote class="cinema-quote">
+                <p>
+                    Mi idea del cine siempre estuvo ligada a las brisas de las noches de verano.
+                    Sólo veíamos cine en verano. Las películas se proyectaban sobre un muro enorme
+                    en calabre blanco. Recuerdo especialmente las películas que tenían agua. Cataratas,
+                    playas, el fondo del mar, ríos y manantiales. Con sólo escuchar el rumor del agua
+                    a los niños nos entraba unas ganas tremendas de orinar. Y lo hacíamos ahí mismo.
+                    A los lados de la pantalla. El cine de mi infancia siempre huele a pis. Y a jazmín.
+                    Y a brisa de verano.
+                </p>
+                <cite>Pedro Almodóvar, Dolor y gloria</cite>
+            </blockquote>
+        </header>
+
+        <!-- Contenido principal -->
         <main id="main-content">
-            <section class="dual-page" aria-labelledby="page-title">
-                <h1 id="page-title">Cine de Verano</h1>
+            <!-- Sección de películas -->
+            <section class="films-section" aria-labelledby="films-title">
+                <div class="section-header">
+                    <h2 id="films-title" class="section-title">Colección de Películas</h2>
 
-                <div class="split-button" role="navigation" aria-label="Navegación principal">
-                    <div class="split-left">
-                        <h2>Explorar Películas</h2>
-                        <p>Descubre nuevas historias</p>
-                    </div>
-                    <div class="split-right">
-                        <h2>Gestionar Colección</h2>
-                        <p>Organiza tus favoritas</p>
+                    <!-- Toggle vista grid/carousel + navegación -->
+                    <div style="display: flex; gap: 1rem; align-items: center;">
+                        <!-- Toggle de vista -->
+                        <div class="view-toggle" role="tablist" aria-label="Cambiar vista">
+                            <button class="view-toggle-btn active"
+                                    id="grid-view-btn"
+                                    role="tab"
+                                    aria-selected="true"
+                                    aria-controls="films-container">
+                                Grid
+                            </button>
+                            <button class="view-toggle-btn"
+                                    id="carousel-view-btn"
+                                    role="tab"
+                                    aria-selected="false"
+                                    aria-controls="films-container">
+                                Carousel
+                            </button>
+                        </div>
+
+                        <!-- Navegación carousel (oculta en vista grid) -->
+                        <div class="carousel-nav" id="carousel-navigation" style="display: none;">
+                            <button class="carousel-btn"
+                                    id="prev-btn"
+                                    aria-label="Ver películas anteriores"
+                                    disabled>
+                                ‹
+                            </button>
+                            <button class="carousel-btn"
+                                    id="next-btn"
+                                    aria-label="Ver películas siguientes">
+                                ›
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="dual-film-container">
-                    <div class="right glass-effect">
-                        <h2>Colección de Películas</h2>
-                        <div class="carousel-container">
-                            <!-- ARIA live region para actualizaciones dinámicas -->
-                            <div class="carousel"
-                                 id="sofia-carousel"
-                                 role="region"
-                                 aria-label="Listado de películas"
-                                 aria-live="polite">
-                                <div class="loading" role="status" aria-live="polite">
-                                    Cargando películas...
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Contenedor de películas -->
+                <div id="films-container"
+                     class="films-grid"
+                     role="region"
+                     aria-live="polite"
+                     aria-label="Listado de películas">
+                    <div class="loading">Cargando películas...</div>
                 </div>
-            </section>
-
-            <!-- Botón flotante con ARIA -->
-            <button class="toggle-form-btn"
-                    onclick="toggleAddForm()"
-                    aria-label="Abrir formulario para agregar nueva película"
-                    aria-expanded="false"
-                    aria-controls="add-film-section">
-                <span aria-hidden="true">+</span>
-            </button>
-
-            <!-- Formulario de agregar película -->
-            <section id="add-film-section"
-                     class="glass-effect"
-                     aria-hidden="true"
-                     aria-labelledby="add-form-title">
-                <h2 id="add-form-title">✨ Agregar Nueva Película</h2>
-                <form id="formFilm" aria-label="Formulario para agregar película">
-                    <fieldset>
-                        <legend class="sr-only">Información de la película</legend>
-
-                        <div class="form-group">
-                            <label for="title">
-                                Título:
-                                <span aria-label="campo obligatorio">*</span>
-                            </label>
-                            <input type="text"
-                                   id="title"
-                                   name="title"
-                                   placeholder="Ingresa el título de la película"
-                                   required
-                                   aria-required="true">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="director">
-                                Director:
-                                <span aria-label="campo obligatorio">*</span>
-                            </label>
-                            <input type="text"
-                                   id="director"
-                                   name="director"
-                                   placeholder="Nombre del director"
-                                   required
-                                   aria-required="true">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="description">
-                                Descripción:
-                                <span aria-label="campo obligatorio">*</span>
-                            </label>
-                            <textarea id="description"
-                                      name="description"
-                                      rows="4"
-                                      placeholder="Escribe una breve descripción..."
-                                      required
-                                      aria-required="true"></textarea>
-                        </div>
-
-                        <div style="text-align: center;">
-                            <button type="submit" aria-label="Guardar nueva película">
-                                Agregar Película
-                            </button>
-                            <button type="button"
-                                    class="btn-cancel"
-                                    onclick="toggleAddForm()"
-                                    aria-label="Cancelar y cerrar formulario">
-                                Cancelar
-                            </button>
-                        </div>
-                    </fieldset>
-                </form>
-            </section>
-
-            <!-- Formulario de editar película -->
-            <section id="updateForm"
-                     class="glass-effect"
-                     aria-hidden="true"
-                     aria-labelledby="edit-form-title">
-                <h2 id="edit-form-title">✏️ Editar Película</h2>
-                <form id="updateFormFields" aria-label="Formulario para editar película">
-                    <input type="hidden" id="updateId" name="updateId">
-
-                    <fieldset>
-                        <legend class="sr-only">Editar información de la película</legend>
-
-                        <div class="form-group">
-                            <label for="updateTitle">
-                                Título:
-                                <span aria-label="campo obligatorio">*</span>
-                            </label>
-                            <input type="text"
-                                   id="updateTitle"
-                                   name="updateTitle"
-                                   required
-                                   aria-required="true">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="updateDirector">
-                                Director:
-                                <span aria-label="campo obligatorio">*</span>
-                            </label>
-                            <input type="text"
-                                   id="updateDirector"
-                                   name="updateDirector"
-                                   required
-                                   aria-required="true">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="updateDescription">
-                                Descripción:
-                                <span aria-label="campo obligatorio">*</span>
-                            </label>
-                            <textarea id="updateDescription"
-                                      name="updateDescription"
-                                      rows="4"
-                                      required
-                                      aria-required="true"></textarea>
-                        </div>
-
-                        <div class="form-buttons" style="text-align: center;">
-                            <button type="submit"
-                                    class="btn-update"
-                                    aria-label="Guardar cambios en la película">
-                                Actualizar Película
-                            </button>
-                            <button type="button"
-                                    id="cancelUpdate"
-                                    class="btn-cancel"
-                                    aria-label="Cancelar edición">
-                                Cancelar
-                            </button>
-                        </div>
-                    </fieldset>
-                </form>
             </section>
         </main>
     </div>
 
-    <script src="services.js"></script>
+    <!-- Botón flotante agregar -->
+    <button class="fab"
+            id="add-film-btn"
+            aria-label="Abrir formulario para agregar nueva película">
+        <span aria-hidden="true">+</span>
+    </button>
+
+    <!-- Modal overlay -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+
+    <!-- Formulario agregar película -->
+    <div class="form-modal" id="add-film-modal" role="dialog" aria-labelledby="add-form-title" aria-modal="true">
+        <button class="form-close" aria-label="Cerrar formulario">×</button>
+
+        <div class="form-header">
+            <h2 id="add-form-title" class="form-title">Agregar Nueva Película</h2>
+        </div>
+
+        <form id="add-film-form" class="form-body">
+            <fieldset>
+                <legend class="sr-only">Información de la película</legend>
+
+                <div class="form-group">
+                    <label for="title" class="form-label">
+                        Título <span class="required" aria-label="obligatorio">*</span>
+                    </label>
+                    <input type="text"
+                           id="title"
+                           name="title"
+                           class="form-input"
+                           placeholder="Ej: Volver"
+                           required
+                           aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="director" class="form-label">
+                        Director <span class="required" aria-label="obligatorio">*</span>
+                    </label>
+                    <input type="text"
+                           id="director"
+                           name="director"
+                           class="form-input"
+                           placeholder="Ej: Pedro Almodóvar"
+                           required
+                           aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="image" class="form-label">
+                        URL de la imagen <span style="font-weight: normal;">(opcional)</span>
+                    </label>
+                    <input type="url"
+                           id="image"
+                           name="image"
+                           class="form-input"
+                           placeholder="https://ejemplo.com/poster.jpg">
+                    <span class="form-hint">Puedes usar URLs de TMDB, IMDb, o cualquier imagen pública</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="form-label">
+                        Descripción <span class="required" aria-label="obligatorio">*</span>
+                    </label>
+                    <textarea id="description"
+                              name="description"
+                              class="form-textarea"
+                              placeholder="Escribe una breve sinopsis..."
+                              required
+                              aria-required="true"></textarea>
+                </div>
+            </fieldset>
+
+            <div class="form-footer">
+                <button type="button" class="btn btn-secondary" id="cancel-add-btn">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    Agregar Película
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Formulario editar película -->
+    <div class="form-modal" id="edit-film-modal" role="dialog" aria-labelledby="edit-form-title" aria-modal="true">
+        <button class="form-close" aria-label="Cerrar formulario">×</button>
+
+        <div class="form-header">
+            <h2 id="edit-form-title" class="form-title">Editar Película</h2>
+        </div>
+
+        <form id="edit-film-form" class="form-body">
+            <input type="hidden" id="edit-id" name="id">
+
+            <fieldset>
+                <legend class="sr-only">Editar información de la película</legend>
+
+                <div class="form-group">
+                    <label for="edit-title" class="form-label">
+                        Título <span class="required" aria-label="obligatorio">*</span>
+                    </label>
+                    <input type="text"
+                           id="edit-title"
+                           name="title"
+                           class="form-input"
+                           required
+                           aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-director" class="form-label">
+                        Director <span class="required" aria-label="obligatorio">*</span>
+                    </label>
+                    <input type="text"
+                           id="edit-director"
+                           name="director"
+                           class="form-input"
+                           required
+                           aria-required="true">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-image" class="form-label">
+                        URL de la imagen <span style="font-weight: normal;">(opcional)</span>
+                    </label>
+                    <input type="url"
+                           id="edit-image"
+                           name="image"
+                           class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-description" class="form-label">
+                        Descripción <span class="required" aria-label="obligatorio">*</span>
+                    </label>
+                    <textarea id="edit-description"
+                              name="description"
+                              class="form-textarea"
+                              required
+                              aria-required="true"></textarea>
+                </div>
+            </fieldset>
+
+            <div class="form-footer">
+                <button type="button" class="btn btn-secondary" id="cancel-edit-btn">
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    Actualizar Película
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Element para anuncios a lectores de pantalla -->
+    <div id="sr-announcer" role="status" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+
+    <!-- JavaScript Modular -->
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
