@@ -62,7 +62,6 @@ Cine de Verano permite **crear, visualizar, editar y eliminar** películas en un
 - **`js/forms.js`** → Form submit handlers, delete confirmations, and UI refresh after mutations.
 - **`js/ui.js`** → `displayFilms()`, `createMovieCard()`, notifications, modal toggles.
 - **`js/main.js`** → App initialization: loads films in **grid** view and hooks up forms.
-````
 ---
 
 ## 🚀 Setup & Run
