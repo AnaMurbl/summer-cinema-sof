@@ -90,12 +90,12 @@
 .form-textarea {
   width: 100%;
   min-height: 48px;                       /* ≥44px (WCAG target) */
-  padding: 0.85rem 1rem;                  /* ↑ relleno */
+  padding: 0.85rem 1rem;
   border: 1px solid #1f2937;              /* borde oscuro = contraste perceptible */
   border-radius: 12px;
 
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  font-size: 1.1rem;                      /* ↑ tamaño de texto de control */
+  font-size: 1.1rem;                      /*
   font-weight: 400;
   color: #111827;
   background: #ffffff;
@@ -116,7 +116,7 @@
 }
 
 .form-textarea {
-  min-height: 140px;                      /* ↑ altura mínima */
+  min-height: 140px;
   resize: vertical;
 }
 
@@ -124,7 +124,7 @@
 .form-hint {
   display: block;
   margin-top: 0.35rem;
-  font-size: 0.95rem;                     /* ↑ tamaño hint */
+  font-size: 0.95rem;
   color: #6b7280;
   font-style: italic;
 }
