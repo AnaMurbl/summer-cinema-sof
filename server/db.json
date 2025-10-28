@@ -4,25 +4,57 @@
       "id": "1",
       "title": "Todo sobre mi madre",
       "director": "Pedro Almodóvar",
-      "description": "Una madre pierde a su hijo y viaja a Barcelona para encontrar al padre del chico, un transexual que desconoce su existencia."
+      "description": "Una madre pierde a su hijo y viaja a Barcelona para encontrar al padre del chico, un transexual que desconoce su existencia.",
+      "image": "https://image.tmdb.org/t/p/w500/rT7vGqLSwLdCONDQpGZpPxOUYXQ.jpg"
     },
     {
       "id": "2",
       "title": "Volver",
       "director": "Pedro Almodóvar",
-      "description": "La muerte de la madre de Raimunda y Sole les obliga a volver a su pueblo natal, donde vivirán una serie de acontecimientos sobrenaturales."
+      "description": "La muerte de la madre de Raimunda y Sole les obliga a volver a su pueblo natal, donde vivirán una serie de acontecimientos sobrenaturales.",
+      "image": "https://image.tmdb.org/t/p/w500/9hVKnlznMpZVsVKdIUZKGaHfBJK.jpg"
     },
     {
       "id": "3",
       "title": "Dolor y gloria",
       "director": "Pedro Almodóvar",
-      "description": "Un director de cine en declive reflexiona sobre las elecciones que ha hecho en la vida mientras la creatividad, la pasión y la memoria le dictan el presente."
+      "description": "Un director de cine en declive reflexiona sobre las elecciones que ha hecho en la vida mientras la creatividad, la pasión y la memoria le dictan el presente.",
+      "image": "https://image.tmdb.org/t/p/w500/2I1yMDoCNMubOltxXsmTkdXNTrs.jpg"
+    },
+    {
+      "id": "4",
+      "title": "Hable con ella",
+      "director": "Pedro Almodóvar",
+      "description": "Dos hombres comparten una amistad poco común mientras cuidan de dos mujeres que están en estado de coma.",
+      "image": "https://image.tmdb.org/t/p/w500/bSbm5r1VVyhPLsLdp6SnfNEVAWD.jpg"
+    },
+    {
+      "id": "5",
+      "title": "Cinco lobitos",
+      "director": "Alauda Ruiz de Azúa",
+      "description": "Amaia acaba de ser madre y se da cuenta de que no sabe muy bien cómo serlo. Su pareja tiene que irse unos días y aprovecha para volver a casa de sus padres.",
+      "image": "https://image.tmdb.org/t/p/w500/z2RhOOLKKQrxFKHCRnK3L9rrOkh.jpg"
+    },
+    {
+      "id": "6",
+      "title": "Los lunes al sol",
+      "director": "Fernando León de Aranoa",
+      "description": "Cuatro desempleados en el norte de España pasan sus días juntos, intentando sobrevivir a la crisis económica y mantener la dignidad. Con Félix Sabroso en el reparto.",
+      "image": "https://image.tmdb.org/t/p/w500/zV0hYgzlFrZzTqPEhEPKPKR3Gbv.jpg"
     },
     {
       "id": "7",
       "title": "Roma, ciudad abierta",
       "director": "Roberto Rossellini",
-      "description": "Durante la ocupación nazi de Roma en 1944, la resistencia italiana y los habitantes de la ciudad luchan contra la opresión alemana."
+      "description": "Durante la ocupación nazi de Roma en 1944, la resistencia italiana y los habitantes de la ciudad luchan contra la opresión alemana.",
+      "image": "https://image.tmdb.org/t/p/w500/yQvpPn4B4q5kK8JJTL4rjqzXLza.jpg"
+    },
+    {
+      "id": "8",
+      "title": "Los asesinos de la luna",
+      "director": "Martin Scorsese",
+      "description": "En la década de 1920, miembros de la nación Osage en Oklahoma son asesinados tras descubrirse petróleo en sus tierras, desatando una investigación del FBI.",
+      "image": "https://image.tmdb.org/t/p/w500/dB6Krk806zeqd0YNp2ngQ9zXteH.jpg"
     }
   ]
 }
