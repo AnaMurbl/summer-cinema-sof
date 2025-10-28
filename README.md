@@ -51,7 +51,7 @@ Cine de Verano permite **crear, visualizar, editar y eliminar** películas en un
 ├── package.json # scripts (api, dev)
 ├── .gitignore
 └── README.md
-
+````
 
 ### 🧭 Services Map (where to look)
 - **`js/api.js`** → All API/CRUD functions:  
