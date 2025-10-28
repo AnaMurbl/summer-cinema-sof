@@ -29,7 +29,7 @@ Cine de Verano permite **crear, visualizar, editar y eliminar** películas en un
 ---
 
 ## 📁 Estructura del Proyecto
-summer-cinema-sof/
+````summer-cinema-sof/
 ├── css/
 │ ├── accessibility.css # WCAG 2.1 AA tweaks (focus, motion-reduced, etc.)
 │ ├── base.css # variables, reset, typography (Inter + Playfair)
@@ -62,7 +62,7 @@ summer-cinema-sof/
 - **`js/forms.js`** → Form submit handlers, delete confirmations, and UI refresh after mutations.
 - **`js/ui.js`** → `displayFilms()`, `createMovieCard()`, notifications, modal toggles.
 - **`js/main.js`** → App initialization: loads films in **grid** view and hooks up forms.
-
+````
 ---
 
 ## 🚀 Setup & Run
